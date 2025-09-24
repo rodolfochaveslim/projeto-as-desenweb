@@ -1,0 +1,81 @@
+:root{
+  --grad-a:#0ea5e9; /* azul */
+  --grad-b:#6366f1; /* roxo */
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --ring: rgba(99,102,241,.25);
+}
+
+html,body{height:100%}
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell;
+}
+
+/* NAVBAR */
+.bg-gradient-custom{
+  background: linear-gradient(90deg,var(--grad-a),var(--grad-b));
+}
+
+/* HERO (topo da Home) */
+.hero{
+  position: relative;
+  color:#fff;
+  padding: 64px 0 48px;
+  overflow: hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(800px 200px at 50% -100px, rgba(255,255,255,.25), transparent);
+  pointer-events:none;
+}
+
+/* CARDS */
+.card{
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+.hover-lift{ transition: transform .15s ease, box-shadow .15s ease }
+.hover-lift:hover{ transform: translateY(-4px); box-shadow: 0 12px 30px rgba(2,6,23,.08) }
+
+/* BOTÕES */
+.btn{ border-radius: 12px }
+
+/* FORM */
+.form-control:focus{
+  border-color: var(--grad-b);
+  box-shadow: 0 0 0 .25rem var(--ring);
+}
+
+/* STATS (cartõezinhos numéricos) */
+.stat{
+  background: var(--card);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex; gap: 12px; align-items: center;
+}
+.stat .icon{
+  width:42px; height:42px; border-radius:12px;
+  display:grid; place-items:center;
+  background: linear-gradient(120deg, var(--grad-a), var(--grad-b));
+  color:#fff; font-size:20px;
+}
+.stat .value{ font-size: 28px; font-weight: 800; line-height: 1; }
+.stat .label{ color: var(--muted); font-size: 12px }
+
+/* Thumbs (prévia de favoritos) */
+.thumbs{ display:flex; flex-wrap:wrap; gap:.5rem }
+.thumbs .thumb{
+  display:block; width:84px; height:84px; overflow:hidden;
+  border-radius:12px; border:1px solid #e5e7eb; background:#fff;
+}
+.thumbs .thumb img{ width:100%; height:100%; object-fit:cover }
+
+/* utilidades */
+.text-muted{ color: var(--muted)!important }
+.small{ font-size: .875rem }
