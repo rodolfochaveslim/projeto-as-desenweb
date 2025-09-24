@@ -17,7 +17,7 @@ function renderAnimais(){
         </div>
       </div>
     </div>
-  `).join('') : '<p class="text-muted">Sem favoritos.</p>';
+  `).join('') : '<p class="text-muted m-0">Sem favoritos.</p>';
 }
 
 function renderContatos(){
@@ -38,16 +38,21 @@ listAnimais.addEventListener('click', (e) => {
   const b = e.target.closest('button[data-k="animal"]');
   if (!b) return;
   DB.removeAt(K_ANIMAIS, Number(b.dataset.i)); renderAnimais();
+  window.dispatchEvent(new Event('as:updated'));
 });
 
 tbody.addEventListener('click', (e) => {
   const b = e.target.closest('button[data-k="contato"]');
   if (!b) return;
   DB.removeAt(K_CONTATOS, Number(b.dataset.i)); renderContatos();
+  window.dispatchEvent(new Event('as:updated'));
 });
 
 btnClear.addEventListener('click', () => {
-  if (confirm('Apagar todos os registros?')) { DB.clearAll(); renderAnimais(); renderContatos(); }
+  if (confirm('Apagar todos os registros?')) {
+    DB.clearAll(); renderAnimais(); renderContatos();
+    window.dispatchEvent(new Event('as:updated'));
+  }
 });
 
 btnExport.addEventListener('click', () => {

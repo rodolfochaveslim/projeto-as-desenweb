@@ -19,13 +19,16 @@ body{
 .bg-gradient-custom{
   background: linear-gradient(90deg,var(--grad-a),var(--grad-b));
 }
+.navbar .nav-link.active{ font-weight:600 }
 
-/* HERO */
+/* HERO  (AGORA USA var(--text) EM VEZ DE #fff) */
 .hero{
   position: relative;
-  color:#fff;
+  color: var(--text);
   padding: 64px 0 48px;
   overflow: hidden;
+  /* degradê bem leve para destacar o topo também no tema claro */
+  background: linear-gradient(180deg, rgba(2,6,23,.04), rgba(2,6,23,0));
 }
 .hero::after{
   content:"";
@@ -80,12 +83,20 @@ body{
 .text-muted{ color: var(--muted)!important }
 .small{ font-size: .875rem }
 
-/* DARK MODE (opcional) */
+/* === DARK MODE (segue o sistema)… */
 @media (prefers-color-scheme: dark){
   :root{ --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8; }
   .card{ border-color:#1e293b }
+  .hero{ background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)); }
 }
+
+/* …mas o usuário pode forçar via dataset (toggle) */
 :root[data-theme="dark"]{
   --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
 }
 :root[data-theme="dark"] .card{ border-color:#1e293b }
+
+/* importante: modo claro forçado */
+:root[data-theme="light"]{
+  --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+}

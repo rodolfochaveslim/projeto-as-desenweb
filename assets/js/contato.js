@@ -65,4 +65,5 @@ form.addEventListener('submit', (e) => {
   alert('Formulário enviado e salvo localmente!');
   form.reset();
   form.classList.remove('was-validated');
+  window.dispatchEvent(new Event('as:updated'));     // avisa p/ atualizar badge
 });

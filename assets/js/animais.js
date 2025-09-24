@@ -50,16 +50,24 @@ function renderThumbs() {
 
 btnDog?.addEventListener('click', carregarDog);
 btnModal?.addEventListener('click', () => { imgModal.src = img.src; modal.show(); });
+
 btnFav?.addEventListener('click', () => {
   if (!currentUrl) return;
   const arr = DB.get(K_ANIMAIS, []);
-  if (arr.some(x => x.url === currentUrl)) {
-    showToast('Essa imagem já está nos favoritos.');
-    return;
-  }
+  if (arr.some(x => x.url === currentUrl)) { showToast('Essa imagem já está nos favoritos.'); return; }
   DB.set(K_ANIMAIS, [{ url: currentUrl, ts: Date.now() }, ...arr]);
   renderThumbs();
   showToast('Favorito salvo!');
+  window.dispatchEvent(new Event('as:updated'));    // avisa p/ atualizar badge
+});
+
+// atalhos bonitinhos: N (novo), F (favoritar), Espaço (modal)
+document.addEventListener('keydown', (e)=>{
+  const tag = (e.target.tagName||'').toLowerCase();
+  if (tag === 'input' || tag === 'textarea') return; // não atrapalhar formulário
+  if (e.key.toLowerCase() === 'n') btnDog?.click();
+  if (e.key.toLowerCase() === 'f') btnFav?.click();
+  if (e.key === ' ') { e.preventDefault(); btnModal?.click(); }
 });
 
 renderThumbs();
