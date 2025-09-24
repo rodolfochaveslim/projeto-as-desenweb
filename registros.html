@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Patas & CEP — Registros</title>
-  <meta name="description" content="Lista de favoritos e envios salvos localmente.">
+  <title>AS Frontend — Registros</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -21,23 +20,52 @@
         <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
         <li class="nav-item"><a class="nav-link" href="animais.html">Animais (API)</a></li>
         <li class="nav-item"><a class="nav-link" href="contato.html">Contato (CEP)</a></li>
-        <li class="nav-item"><a class="nav-link active position-relative" href="registros.html">Registros <span id="navTotals" class="badge rounded-pill text-bg-light ms-1">0</span></a></li>
+        <li class="nav-item"><a class="nav-link active" href="registros.html">Registros</a></li>
       </ul>
-      <button id="toggleTheme" class="btn btn-sm btn-outline-light ms-2" title="Tema"><i class="bi bi-moon"></i></button>
     </div>
   </div>
 </nav>
 
 <main class="container py-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
     <h1 class="m-0">Registros</h1>
-    <div class="d-flex gap-2">
-      <button id="btnExport" class="btn btn-outline-primary">Exportar JSON</button>
-      <button id="btnClear" class="btn btn-outline-danger">Limpar tudo</button>
+    <div class="d-flex flex-wrap gap-2">
+      <button id="btnExport" class="btn btn-outline-primary"><i class="bi bi-filetype-json me-1"></i>Exportar JSON</button>
+      <button id="btnCsv" class="btn btn-outline-secondary"><i class="bi bi-filetype-csv me-1"></i>Exportar CSV</button>
+      <label class="btn btn-outline-dark m-0">
+        <input id="fileImport" type="file" accept="application/json" hidden>
+        <i class="bi bi-upload me-1"></i>Importar JSON
+      </label>
+      <div class="vr d-none d-md-block"></div>
+      <button id="btnClearFav" class="btn btn-outline-danger"><i class="bi bi-trash me-1"></i>Limpar favoritos</button>
+      <button id="btnClearCont" class="btn btn-outline-danger"><i class="bi bi-trash me-1"></i>Limpar contatos</button>
+      <button id="btnClear" class="btn btn-danger"><i class="bi bi-trash2-fill me-1"></i>Limpar tudo</button>
     </div>
   </div>
 
-  <h4 class="mt-4">Favoritos (Animais)</h4>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input id="filtro" class="form-control" placeholder="Buscar por nome, e-mail, cidade, UF ou CEP">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+        <select id="ordenar" class="form-select">
+          <option value="data_desc">Ordenar por: Data (mais recente)</option>
+          <option value="data_asc">Data (mais antiga)</option>
+          <option value="nome_asc">Nome (A–Z)</option>
+          <option value="nome_desc">Nome (Z–A)</option>
+          <option value="cidade_asc">Cidade (A–Z)</option>
+          <option value="cidade_desc">Cidade (Z–A)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mt-2">Favoritos (Animais)</h4>
   <div id="listAnimais" class="row g-3"></div>
 
   <hr class="my-4">
@@ -55,7 +83,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="assets/js/registros.js"></script>
-<script type="module" src="assets/js/badges.js"></script>
-<script type="module" src="assets/js/theme.js"></script>
 </body>
 </html>
