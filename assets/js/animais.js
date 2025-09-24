@@ -12,6 +12,9 @@ const thumbs = document.getElementById('thumbs');
 let currentUrl = '';
 
 const modal = new bootstrap.Modal('#imgModal');
+const toastEl = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+const showToast = (msg)=>{ toastMsg.textContent = msg; new bootstrap.Toast(toastEl).show(); };
 
 async function carregarDog() {
   try {
@@ -49,9 +52,14 @@ btnDog?.addEventListener('click', carregarDog);
 btnModal?.addEventListener('click', () => { imgModal.src = img.src; modal.show(); });
 btnFav?.addEventListener('click', () => {
   if (!currentUrl) return;
-  DB.push(K_ANIMAIS, { url: currentUrl, ts: Date.now() });
+  const arr = DB.get(K_ANIMAIS, []);
+  if (arr.some(x => x.url === currentUrl)) {
+    showToast('Essa imagem já está nos favoritos.');
+    return;
+  }
+  DB.set(K_ANIMAIS, [{ url: currentUrl, ts: Date.now() }, ...arr]);
   renderThumbs();
-  btnFav.textContent = 'Favoritado!'; setTimeout(() => btnFav.textContent = 'Favoritar', 900);
+  showToast('Favorito salvo!');
 });
 
 renderThumbs();

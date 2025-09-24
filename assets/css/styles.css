@@ -20,7 +20,7 @@ body{
   background: linear-gradient(90deg,var(--grad-a),var(--grad-b));
 }
 
-/* HERO (topo da Home) */
+/* HERO */
 .hero{
   position: relative;
   color:#fff;
@@ -51,7 +51,7 @@ body{
   box-shadow: 0 0 0 .25rem var(--ring);
 }
 
-/* STATS (cartõezinhos numéricos) */
+/* STATS */
 .stat{
   background: var(--card);
   border: 1px solid #e5e7eb;
@@ -68,7 +68,7 @@ body{
 .stat .value{ font-size: 28px; font-weight: 800; line-height: 1; }
 .stat .label{ color: var(--muted); font-size: 12px }
 
-/* Thumbs (prévia de favoritos) */
+/* THUMBS */
 .thumbs{ display:flex; flex-wrap:wrap; gap:.5rem }
 .thumbs .thumb{
   display:block; width:84px; height:84px; overflow:hidden;
@@ -79,3 +79,13 @@ body{
 /* utilidades */
 .text-muted{ color: var(--muted)!important }
 .small{ font-size: .875rem }
+
+/* DARK MODE (opcional) */
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8; }
+  .card{ border-color:#1e293b }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#94a3b8;
+}
+:root[data-theme="dark"] .card{ border-color:#1e293b }

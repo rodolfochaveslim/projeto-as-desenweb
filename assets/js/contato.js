@@ -31,7 +31,7 @@ async function buscarCEP(){
     logradouro.value = data.logradouro || '';
     bairro.value = data.bairro || '';
     cidade.value = data.localidade || '';
-    uf.value = data.uf || '';
+    uf.value = (data.uf || '').toUpperCase();
   }catch(e){
     console.error(e);
     erroCep.textContent = 'Não foi possível consultar o CEP agora.';
@@ -39,8 +39,9 @@ async function buscarCEP(){
 }
 
 cep.addEventListener('input', () => { cep.value = formataCEP(cep.value); });
+cep.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); btnCep.click(); }});
 btnCep.addEventListener('click', buscarCEP);
-cep.addEventListener('blur', () => somenteNumeros(cep.value).length === 8 && buscarCEP());
+uf.addEventListener('input', ()=> uf.value = uf.value.toUpperCase().slice(0,2));
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -49,7 +50,6 @@ form.addEventListener('submit', (e) => {
     form.classList.add('was-validated');
     return;
   }
-  // salva o envio
   DB.push(K_CONTATOS, {
     ts: Date.now(),
     nome: nome.value.trim(),
